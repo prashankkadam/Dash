@@ -9,4 +9,6 @@ Dynamic dashboard test 3 - Dashboard with Multiple graphs which can be varied ba
 
 Dynamic dashboard test 4 - Polynomial Regression - Dynamic order change
 
+Bar graph overlay template
+
 
