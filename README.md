@@ -11,4 +11,6 @@ Dynamic dashboard test 4 - Polynomial Regression - Dynamic order change
 
 Bar graph overlay template
 
+Dynamic dashboad test 5 - Dash bootstrap component test
+
 
