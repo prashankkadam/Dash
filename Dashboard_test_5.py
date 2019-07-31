@@ -7,7 +7,7 @@ Code written by : Prashank Kadam
 User name - ADM-PKA187
 Email ID : prashank.kadam@maersktankers.com
 Created on - Tue Jul 30 15:38:21 2019
-version : 1.0
+version : 1.1
 """  
 
 import dash
@@ -15,6 +15,18 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
+#import pdfkit
+#import time
+import base64
+import subprocess
+import sys
+
+image_filename_1 = r'C:\Users\ADM-PKA187\Desktop\Dastabase\Maersk_Header.png'
+encoded_image_1 = base64.b64encode(open(image_filename_1, 'rb').read())  
+image_filename_2 = r'C:\Users\ADM-PKA187\Desktop\Dastabase\Header_2.png'
+encoded_image_2 = base64.b64encode(open(image_filename_2, 'rb').read()) 
+
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 navbar = dbc.NavbarSimple(
     children=[
@@ -36,19 +48,26 @@ navbar = dbc.NavbarSimple(
     sticky="top",
 )
 
+Image = html.Div([
+                  html.Img(src='data:image/png;base64,{}'.format(encoded_image_1.decode()), height=750, width=1250),
+                  html.Img(src='data:image/png;base64,{}'.format(encoded_image_2.decode()), height=750, width=1250)
+                ])
+
 body = dbc.Container(
     [
         dbc.Row(
                 [
                 dbc.Col(
                     [
-                        html.H2("ME vs AE"),
+                        html.H2("AE vs Boiler"),
                         html.P(
                             """\
 ME vs AE loss trends
 """
                         ),
-                        dbc.Button("View details", color="secondary"),
+                        dbc.Button("View details", color="secondary", id='Button1'),
+                        html.Div(id='output-container-button',
+                                 children='Enter a value and press submit')
                     ],
                     md=4,
                 ),
@@ -66,19 +85,17 @@ ME vs AE loss trends
             [
                 dbc.Col(
                     [
-                        html.H2("Ballast vs Laden loss"),
-                        html.P(
-                            """\
-Ballast vs laden loss trends
-"""
+                        html.H2("Graph 2"),
+                        dcc.Graph(
+                            figure={"data": [go.Scatter(x=[1, 2, 3], y=[3, 1, 2], mode='lines+markers', opacity=0.6),
+                                             go.Scatter(x=[1, 2, 3], y=[7, 4, 3], mode='lines+markers', opacity=0.6)]}
                         ),
-                        dbc.Button("View details", color="secondary"),
                     ],
-                    md=4,
+                    md=6,
                 ),
                 dbc.Col(
                     [
-                        html.H2("Graph 2"),
+                        html.H2("Graph 3"),
                         dcc.Graph(
                             figure={'data': [go.Bar(x=[1, 2, 3], y=[3, 1, 2], marker=dict(color='skyblue')),
                                              go.Bar(x=[1, 2, 3], y=[0.3, 0.4, 0.1], opacity=1,
@@ -93,9 +110,21 @@ Ballast vs laden loss trends
     className="mt-4",
 )
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app.layout = html.Div([navbar, Image, body])
 
-app.layout = html.Div([navbar, body])
+
+@app.callback(
+    dash.dependencies.Output('output-container-button', 'children'),
+    [dash.dependencies.Input('Button1', 'n_clicks')]
+)
+def update_figure(n_clicks):  
+    if n_clicks == 1:    
+        subprocess.Popen([sys.executable, r'C:\Users\ADM-PKA187\.spyder-py3\Prashank_scripts\print_pdf.py'], 
+                                    stdout=subprocess.PIPE, 
+                                    stderr=subprocess.STDOUT)
+        return 'Printed'
+    if n_clicks == 2:
+        return 'Printed twice'
 
 if __name__ == "__main__":
     app.run_server()
