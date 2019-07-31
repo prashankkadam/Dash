@@ -13,4 +13,6 @@ Bar graph overlay template
 
 Dynamic dashboad test 5 - Dash bootstrap component test
 
+Dynamic dashboard test 5 - Update version 1.1
+
 
