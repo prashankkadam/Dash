@@ -7,7 +7,7 @@ Code written by : Prashank Kadam
 User name - ADM-PKA187
 Email ID : prashank.kadam@maersktankers.com
 Created on - Fri Aug  2 12:25:44 2019
-version : 1.0
+version : 1.1
 """  
 
 import dash
