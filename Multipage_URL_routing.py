@@ -13,6 +13,7 @@ version : 1.0
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_bootstrap_components as dbc
 
 print(dcc.__version__) # 0.6.0 or above is required
 
@@ -29,10 +30,40 @@ app.config.suppress_callback_exceptions = True
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
-    html.Div(id='page-content')
+    html.Div(id='page-content'),
 ])
 
+navbar = dbc.NavbarSimple(
+    children=[
+        dbc.NavItem(dbc.NavLink("Page 1", href="#")),
+        dbc.DropdownMenu(
+            children=[
+                dbc.DropdownMenuItem("More pages", header=True),
+                dbc.DropdownMenuItem("Page 2", href="#"),
+                dbc.DropdownMenuItem("Page 3", href="#"),
+            ],
+            nav=True,
+            in_navbar=True,
+            label="More",
+        ),
+    ],
+    brand="NavbarSimple",
+    brand_href="#",
+    color="primary",
+    dark=True,
+)
 
+nav = dbc.Nav(
+    [
+        dbc.NavLink("Page 1", active=True, href="/page-1"),
+        dbc.NavLink("Page 2", href="/page-2"),
+        dbc.NavLink("Page 3", href="/page-3"),
+        dbc.NavLink("Page 4", disabled=True, href="/page-3"),
+    ],
+    fill=True,
+    sticky=True,
+)
+'''
 index_page = html.Div([
     dcc.Link('Go to Page 1', href='/page-1'),
     html.Br(),
@@ -40,7 +71,7 @@ index_page = html.Div([
     html.Br(),
     dcc.Link('Go to Page 3', href='/page-3'),
 ])
-
+'''
 page_1_layout = html.Div([
     html.H1('Page 1'),
     dcc.Dropdown(
@@ -113,7 +144,7 @@ def display_page(pathname):
     elif pathname == '/page-3':
         return page_3_layout
     else:
-        return index_page
+        return nav
     # You could also return a 404 "URL not found" page here
 
 
