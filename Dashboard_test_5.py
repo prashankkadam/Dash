@@ -1,6 +1,5 @@
 # -*- coding:/ utf-8 -*-
 """
-Created on Tue Jul 23 12:07:20 2019
 This piece of software is bound by The MIT License (MIT)
 Copyright (c) 2019 Prashank Kadam
 Code written by : Prashank Kadam
