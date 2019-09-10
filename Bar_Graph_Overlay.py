@@ -18,7 +18,7 @@ from plotly.offline import plot
 fig = {
     'data': [go.Bar(x=[1, 2, 3], y=[3, 1, 2], marker=dict(color='skyblue')),
              go.Bar(x=[1, 2, 3], y=[0.3, 0.4, 0.1], opacity=1,
-             marker=dict(color='skyblue', line=dict(color='black', width=5)))],
+             marker=dict(color='rgba(0,0,0,0)', line=dict(color='black', width=5)))],
     'layout': go.Layout(barmode='overlay')
 } 
 
